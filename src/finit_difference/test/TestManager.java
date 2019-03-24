@@ -11,7 +11,7 @@ public abstract class TestManager {
         ArrayList<Integer> results = new ArrayList<>();
         ArrayList<Pair<Character, Character>> testClasses = Functions.getTestClasses();
 
-        for (int i=0; i< testClasses.size(); i++) {
+        for (int i = 0; i < testClasses.size(); i++) {
             Pair<Character, Character> classe = testClasses.get(i);
 
             String scenario = null;
@@ -20,7 +20,7 @@ public abstract class TestManager {
             double alpha = 0;
             double beta = 0;
             double tol = 0;
-            long n = 0;
+            int n = 0;
             TestFunction g = null;
             Vector ra = null;
             Mesure mesure = null;
@@ -31,32 +31,28 @@ public abstract class TestManager {
                     if (de.getN() > 0) {
                         Vectorizable ro = null;
                         try {
-                            return f.solve(de.getAlpha(), de.getBeta(), de.getN(),de.getF());
+                            return f.solve(de.getAlpha(), de.getBeta(), de.getN(), de.getF());
                         } catch (Exception e) {
                             return null;
                         }
-                    }
-
-                    else {
+                    } else {
                         try {
-                            Vectorizable ro = f.solve(de.getAlpha(), de.getBeta(), de.getN(),de.getF());
-                            return new Vector();
-                        }catch (FiniteDifferenceException e) {
+                            Vectorizable ro = f.solve(de.getAlpha(), de.getBeta(), de.getN(), de.getF());
+                            return new Vector(1);
+                        } catch (FiniteDifferenceException e) {
                             return null;
-                        }catch (Exception e) {
-                            return new Vector();
+                        } catch (Exception e) {
+                            return new Vector(1);
                         }
                     }
                 }
             };
 
 
-
             switch (classe.getValue()) {
                 case 'a':
                     n = -3;
-
-                    mesure =new Mesure() {
+                    mesure = new Mesure() {
                         @Override
                         public double getError(Vectorizable v1, Vectorizable v2) {
                             if (v1 == v2)
@@ -64,11 +60,12 @@ public abstract class TestManager {
                             return 10;
                         }
                     };
+                    tol = 10e-10;
                     break;
 
                 case 'b':
                     n = 0;
-                    mesure =new Mesure() {
+                    mesure = new Mesure() {
                         @Override
                         public double getError(Vectorizable v1, Vectorizable v2) {
                             if (v1 == v2)
@@ -76,70 +73,96 @@ public abstract class TestManager {
                             return 10;
                         }
                     };
+                    tol = 10e-10;
                     break;
 
                 case 'c':
                     n = 1;
-                    mesure =new Mesure() {
+                    mesure = new Mesure() {
                         @Override
                         public double getError(Vectorizable v1, Vectorizable v2) {
-                            if (v1 != null)
-                            {
+                            if (v1 != null) {
                                 if (v1.size() == v2.size()) {
                                     double s = 0;
-                                    for (int i =0; i<v1.size(); i++) {
-                                        s += (v1.get(i)-v2.get(i))*(v1.get(i)-v2.get(i));
+                                    double s0 = 0;
+                                    double tmp = 0;
+                                    for (int i = 0; i < v1.size(); i++) {
+                                        s0 += v2.get(i);
+                                        tmp = v1.get(i) - v2.get(i);
+                                        s += tmp * tmp;
                                     }
-                                    return Math.sqrt(s);
+
+                                    s0 = Math.sqrt(s0);
+                                    if (s0 == 0)
+                                        return Math.sqrt(s);
+                                    else
+                                        return Math.sqrt(s) / s0;
                                 }
                             }
                             return 10;
                         }
                     };
-
+                    tol = 10e-8;
                     break;
 
                 case 'd':
                     n = 2;
-                    mesure =new Mesure() {
+                    mesure = new Mesure() {
                         @Override
                         public double getError(Vectorizable v1, Vectorizable v2) {
-                            if (v1 != null)
-                            {
+                            if (v1 != null) {
                                 if (v1.size() == v2.size()) {
                                     double s = 0;
-                                    for (int i =0; i<v1.size(); i++) {
-                                        s += (v1.get(i)-v2.get(i))*(v1.get(i)-v2.get(i));
+                                    double s0 = 0;
+                                    double tmp = 0;
+                                    for (int i = 0; i < v1.size(); i++) {
+                                        s0 += v2.get(i);
+                                        tmp = v1.get(i) - v2.get(i);
+                                        s += tmp * tmp;
                                     }
-                                    return Math.sqrt(s);
+
+                                    s0 = Math.sqrt(s0);
+                                    if (s0 == 0)
+                                        return Math.sqrt(s);
+                                    else
+                                        return Math.sqrt(s) / s0;
                                 }
                             }
                             return 10;
                         }
                     };
+                    tol = 10e-8;
                     break;
 
                 case 'e':
                     n = 10000;
-                    mesure =new Mesure() {
+                    mesure = new Mesure() {
                         @Override
                         public double getError(Vectorizable v1, Vectorizable v2) {
-                            if (v1 != null)
-                            {
+                            if (v1 != null) {
                                 if (v1.size() == v2.size()) {
                                     double s = 0;
-                                    for (int i =0; i<v1.size(); i++) {
-                                        s += (v1.get(i)-v2.get(i))*(v1.get(i)-v2.get(i));
+                                    double s0 = 0;
+                                    double tmp = 0;
+                                    for (int i = 0; i < v1.size(); i++) {
+                                        s0 += v2.get(i);
+                                        tmp = v1.get(i) - v2.get(i);
+                                        s += tmp * tmp;
                                     }
-                                    return Math.sqrt(s);
+
+                                    s0 = Math.sqrt(s0);
+                                    if (s0 == 0)
+                                        return Math.sqrt(s);
+                                    else
+                                        return Math.sqrt(s) / s0;
                                 }
                             }
                             return 10;
                         }
                     };
+                    tol = 10e-8;
                     break;
             }
-
 
             switch (classe.getKey()) {
                 case 'a':
@@ -154,10 +177,14 @@ public abstract class TestManager {
                     alpha = 0;
                     beta = 0;
 
+                    if (n > 0) {
+                        ra = new Vector(n);
+                        double[] maillage = Functions.getMaillage(n);
+                        for (int j = 0; j < maillage.length; j++) {
+                            ra.set(j, f.calcul(maillage[j]));
+                        }
+                    }
 
-                    ra = new Vector();
-
-                    tol = 10e-8;
                     break;
 
                 case 'b':
@@ -172,10 +199,15 @@ public abstract class TestManager {
                     alpha = 2;
                     beta = 2;
 
+                    if (n > 0) {
+                        ra = new Vector(n);
 
-                    ra = new Vector();
+                        double[] maillage = Functions.getMaillage(n);
+                        for (int j = 0; j < maillage.length; j++) {
+                            ra.set(j, f.calcul(maillage[j]));
+                        }
+                    }
 
-                    tol = 10e-8;
                     break;
 
                 case 'c':
@@ -189,10 +221,15 @@ public abstract class TestManager {
                     alpha = 0;
                     beta = 1;
 
-                    ra = new Vector();
+                    if (n > 0) {
+                        ra = new Vector(n);
+                        double[] maillage = Functions.getMaillage(n);
+                        for (int j = 0; j < maillage.length; j++) {
+                            ra.set(j, f.calcul(maillage[j]));
+                        }
+                    }
 
 
-                    tol = 10e-8;
                     break;
 
                 case 'd':
@@ -201,16 +238,22 @@ public abstract class TestManager {
                     f = new Function() {
                         @Override
                         public double calcul(double x) {
-                            return 1;
+                            return -1;
                         }
                     };
                     alpha = 0;
-                    beta = 1./2;
+                    beta = 1. / 2;
 
-                    ra = new Vector();
+                    if (n > 0) {
+                        ra = new Vector(n);
+
+                        double[] maillage = Functions.getMaillage(n);
+                        for (int j = 0; j < maillage.length; j++) {
+                            ra.set(j, f.calcul(maillage[j]));
+                        }
+                    }
 
 
-                    tol = 10e-8;
                     break;
 
                 case 'e':
@@ -219,16 +262,22 @@ public abstract class TestManager {
                     f = new Function() {
                         @Override
                         public double calcul(double x) {
-                            return 3.*x;
+                            return -3. * x;
                         }
                     };
                     alpha = 0;
-                    beta = 1./2.;
+                    beta = 1. / 2.;
 
-                    ra = new Vector();
+                    if (n > 0) {
+                        ra = new Vector(n);
+
+                        double[] maillage = Functions.getMaillage(n);
+                        for (int j = 0; j < maillage.length; j++) {
+                            ra.set(j, f.calcul(maillage[j]));
+                        }
+                    }
 
 
-                    tol = 10e-8;
                     break;
 
                 case 'f':
@@ -237,16 +286,22 @@ public abstract class TestManager {
                     f = new Function() {
                         @Override
                         public double calcul(double x) {
-                            return 16*Math.exp(4.*x);
+                            return -16 * Math.exp(4. * x);
                         }
                     };
                     alpha = 1;
                     beta = Math.exp(4);
 
 
-                    ra = new Vector();
+                    if (n > 0) {
+                        ra = new Vector(n);
 
-                    tol = 10e-8;
+                        double[] maillage = Functions.getMaillage(n);
+                        for (int j = 0; j < maillage.length; j++) {
+                            ra.set(j, f.calcul(maillage[j]));
+                        }
+                    }
+
                     break;
 
                 case 'g':
@@ -255,16 +310,22 @@ public abstract class TestManager {
                     f = new Function() {
                         @Override
                         public double calcul(double x) {
-                            return 9900.*Math.pow(x-0.5, 98);
+                            return -9900. * Math.pow(x - 0.5, 98);
                         }
                     };
                     alpha = Math.pow(0.5, 100);
                     beta = Math.pow(0.5, 100);
 
-                    ra = new Vector();
+                    if (n > 0) {
+                        ra = new Vector(n);
+
+                        double[] maillage = Functions.getMaillage(n);
+                        for (int j = 0; j < maillage.length; j++) {
+                            ra.set(j, f.calcul(maillage[j]));
+                        }
+                    }
 
 
-                    tol = 10e-8;
                     break;
 
                 case 'h':
@@ -273,16 +334,22 @@ public abstract class TestManager {
                     f = new Function() {
                         @Override
                         public double calcul(double x) {
-                            return -1./((x+.5)*(x+.5));
+                            return 1. / ((x + .5) * (x + .5));
                         }
                     };
                     alpha = -Math.log(2);
-                    beta = Math.log(3./2.);
+                    beta = Math.log(3. / 2.);
 
 
-                    ra = new Vector();
+                    if (n > 0) {
+                        ra = new Vector(n);
 
-                    tol = 10e-8;
+                        double[] maillage = Functions.getMaillage(n);
+                        for (int j = 0; j < maillage.length; j++) {
+                            ra.set(j, f.calcul(maillage[j]));
+                        }
+                    }
+
 
                     break;
 
@@ -292,17 +359,23 @@ public abstract class TestManager {
                     f = new Function() {
                         @Override
                         public double calcul(double x) {
-                            return -(4*Math.PI*Math.PI)*Math.sin(2*Math.PI*x);
+                            return (4 * Math.PI * Math.PI) * Math.sin(2 * Math.PI * x);
                         }
                     };
                     alpha = 0;
                     beta = 0;
 
 
-                    ra = new Vector();
+                    if (n > 0) {
+                        ra = new Vector(n);
+
+                        double[] maillage = Functions.getMaillage(n);
+                        for (int j = 0; j < maillage.length; j++) {
+                            ra.set(j, f.calcul(maillage[j]));
+                        }
+                    }
 
 
-                    tol = 10e-8;
                     break;
 
                 case 'j':
@@ -311,25 +384,28 @@ public abstract class TestManager {
                     f = new Function() {
                         @Override
                         public double calcul(double x) {
-                            return 16*Math.sinh(4*x);
+                            return -16 * Math.sinh(4 * x);
                         }
                     };
                     alpha = 0;
                     beta = Math.sinh(4);
 
 
-                    ra = new Vector();
+                    if (n > 0) {
+                        ra = new Vector(n);
+                        double[] maillage = Functions.getMaillage(n);
+                        for (int j = 0; j < maillage.length; j++) {
+                            ra.set(j, f.calcul(maillage[j]));
+                        }
+                    }
 
-                    tol = 10e-8;
                     break;
             }
 
-            if (n <= 0)
-                ra =null;
 
             results.add((new TestData(
                     new DefaultSolver(), scenario, new De(alpha, beta, n, f), g, ra, mesure, tol
-            )).result() ? 1:0);
+            )).result() ? 1 : 0);
 
         }
 

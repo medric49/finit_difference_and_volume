@@ -6,9 +6,9 @@ public class De {
     private double alpha;
     private double beta;
     private Function f;
-    private long n;
+    private int n;
 
-    public De(double alpha, double beta, long n, Function f) {
+    public De(double alpha, double beta, int n, Function f) {
         this.alpha = alpha;
         this.beta = beta;
         this.f = f;
@@ -39,11 +39,11 @@ public class De {
         this.f = f;
     }
 
-    public long getN() {
+    public int getN() {
         return n;
     }
 
-    public void setN(long n) {
+    public void setN(int n) {
         this.n = n;
     }
 }

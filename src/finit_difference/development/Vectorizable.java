@@ -1,7 +1,7 @@
 package finit_difference.development;
 
 public interface Vectorizable {
-    double get(long i);
-    void set(long i, double x);
-    long size();
+    double get(int i);
+    void set(int i, double x);
+    int size();
 }

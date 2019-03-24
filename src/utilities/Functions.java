@@ -41,5 +41,16 @@ public abstract class Functions {
             e.printStackTrace();
         }
             return result;
-        }
     }
+
+
+    public static double[] getMaillage(int n) {
+        double[] result = new double[n];
+        double s = 0.;
+        for (int i=0; i < n; i++ ) {
+            s += 1./(n+1);
+            result[i] = s;
+        }
+        return result;
+    }
+}
