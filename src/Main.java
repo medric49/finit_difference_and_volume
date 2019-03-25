@@ -14,7 +14,7 @@ public class Main {
         }
         s /= results.size();
 
-        System.out.println( (s*100)+" %");
+        System.out.println("Résultat du test : "+ (s*100)+" %");
 
     }
 }
