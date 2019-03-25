@@ -3,15 +3,20 @@ package utilities;
 import javafx.util.Pair;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class Functions {
     private static final String FINITE_DIFFERENCE_LOG_FOLDER = "logs/finite_difference";
+    public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd-MM-YYYY HH:mm:ss");
 
-    public static String createFiniteDifferenceLogFile() {
+    private static final SimpleDateFormat FILE_FORMATTER = new SimpleDateFormat("dd_MM_YYYY_HH:mm:ss");
+
+    public static File createFiniteDifferenceLogFile() {
         Date date = new Date();
-        String fileName = FINITE_DIFFERENCE_LOG_FOLDER+"/"+date.toString()+".log";
+
+        String fileName = FINITE_DIFFERENCE_LOG_FOLDER+"/test_"+ FILE_FORMATTER.format(date) +".log";
         File file = new File(fileName);
         try {
             FileOutputStream io = new FileOutputStream(file);
@@ -21,7 +26,7 @@ public abstract class Functions {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return fileName;
+        return file;
     }
 
     public static ArrayList<Pair<Character, Character>> getTestClasses() {

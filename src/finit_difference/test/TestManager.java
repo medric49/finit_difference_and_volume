@@ -4,12 +4,27 @@ import finit_difference.development.*;
 import javafx.util.Pair;
 import utilities.Functions;
 
+import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Formatter;
 
 public abstract class TestManager {
     public static ArrayList<Integer> run() {
         ArrayList<Integer> results = new ArrayList<>();
+        ArrayList<String> scenarii = new ArrayList<>();
+        ArrayList<Double> times = new ArrayList<>();
+
         ArrayList<Pair<Character, Character>> testClasses = Functions.getTestClasses();
+        File logFile = Functions.createFiniteDifferenceLogFile();
+
+
+        Date start = new Date();
+
 
         for (int i = 0; i < testClasses.size(); i++) {
             Pair<Character, Character> classe = testClasses.get(i);
@@ -166,7 +181,7 @@ public abstract class TestManager {
 
             switch (classe.getKey()) {
                 case 'a':
-                    scenario = "Cas de la fonction nulle";
+                    scenario = "Fonction nulle";
 
                     f = new Function() {
                         @Override
@@ -188,7 +203,7 @@ public abstract class TestManager {
                     break;
 
                 case 'b':
-                    scenario = "Cas d'une fonction constante non nulle";
+                    scenario = "Fonction constante non nulle";
 
                     f = new Function() {
                         @Override
@@ -211,7 +226,7 @@ public abstract class TestManager {
                     break;
 
                 case 'c':
-                    scenario = "Cas d'une fonction linéaire";
+                    scenario = "Fonction linéaire";
                     f = new Function() {
                         @Override
                         public double calcul(double x) {
@@ -233,7 +248,7 @@ public abstract class TestManager {
                     break;
 
                 case 'd':
-                    scenario = "Cas d'une fonction polynomiale de dégré 2";
+                    scenario = "Fonction polynomiale de dégré 2";
 
                     f = new Function() {
                         @Override
@@ -257,7 +272,7 @@ public abstract class TestManager {
                     break;
 
                 case 'e':
-                    scenario = "Cas d'une fonction polynomiale de degré 3";
+                    scenario = "Fonction polynomiale de degré 3";
 
                     f = new Function() {
                         @Override
@@ -329,7 +344,7 @@ public abstract class TestManager {
                     break;
 
                 case 'h':
-                    scenario = "Cas d'une fonction logarithmique";
+                    scenario = "Fonction logarithmique";
 
                     f = new Function() {
                         @Override
@@ -354,7 +369,7 @@ public abstract class TestManager {
                     break;
 
                 case 'i':
-                    scenario = "Cas d'une fonction sinusoidale";
+                    scenario = "Fonction sinusoidale";
 
                     f = new Function() {
                         @Override
@@ -379,7 +394,7 @@ public abstract class TestManager {
                     break;
 
                 case 'j':
-                    scenario = "Cas d'une fonction chainette";
+                    scenario = "Fonction chainette";
 
                     f = new Function() {
                         @Override
@@ -403,11 +418,79 @@ public abstract class TestManager {
             }
 
 
-            results.add((new TestData(
+            if (n <0)
+                scenario+= " avec n négatif";
+            else if(n == 0)
+                scenario+= " avec n nul";
+            else if (n==1)
+                scenario+= " avec n vallant 1";
+            else if( n== 2)
+                scenario += " avec n vallant 2";
+            else
+                scenario += " avec n très grand";
+
+            TestData testData = new TestData(
                     new DefaultSolver(), scenario, new De(alpha, beta, n, f), g, ra, mesure, tol
-            )).result() ? 1 : 0);
+            );
+
+            Date d1 = new Date();
+            boolean result = testData.result();
+            Date d2 = new Date();
+
+            results.add(result ? 1 : 0);
+            scenarii.add(scenario);
+            times.add( (d2.getTime() - d1.getTime())/1000. );
 
         }
+
+        Date end = new Date();
+
+        try {
+
+            double s = 0;
+
+            for (int i=0; i<results.size(); i++) {
+                s += results.get(i);
+            }
+            s /= results.size();
+
+
+            FileOutputStream io = new FileOutputStream(logFile);
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(io));
+
+            writer.write("==========   Résultat du test de la librairie des différences finies   ==========\n\n");
+            writer.newLine();
+
+            writer.write("Date de début : "+ Functions.FORMATTER.format(start)  );
+            writer.newLine();
+            writer.write("Date de fin : "+ Functions.FORMATTER.format(end) );
+            writer.newLine();
+            writer.write("Durée du test : "+ ((end.getTime() - start.getTime())/1000.) + " secondes" );
+            writer.newLine();
+            writer.write("Résultat du test : " + (int)s*results.size() + "/" + results.size() );
+            writer.newLine();
+            writer.write("Pourcentage de réussite : "+ (s*100) +" %");
+            writer.write("\n");
+            writer.newLine();
+
+            writer.write("****** Détails ******\n");
+            writer.newLine();
+            for (int i = 0; i < results.size(); i++) {
+                writer.write("Scénario du cas de test : "+ scenarii.get(i));
+                writer.newLine();
+                writer.write("Résultat du cas de test : "+ (results.get(i)==1?"Succès":"Echec") );
+                writer.newLine();
+                writer.write("Durée d'exécution du cas de test : "+ times.get(i)+" secondes\n");
+                writer.newLine();
+            }
+
+
+            writer.close();
+            io.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
 
         return results;
