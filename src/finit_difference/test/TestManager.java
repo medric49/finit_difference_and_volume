@@ -5,13 +5,8 @@ import javafx.util.Pair;
 import utilities.Functions;
 
 import java.io.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Formatter;
 
 public abstract class TestManager {
     public static ArrayList<Integer> run() {
@@ -150,7 +145,7 @@ public abstract class TestManager {
                     break;
 
                 case 'e':
-                    n = 10000;
+                    n = 1005000;
                     mesure = new Mesure() {
                         @Override
                         public double getError(Vectorizable v1, Vectorizable v2) {
@@ -423,9 +418,9 @@ public abstract class TestManager {
             else if(n == 0)
                 scenario+= " avec n nul";
             else if (n==1)
-                scenario+= " avec n vallant 1";
+                scenario+= " avec n valant 1";
             else if( n== 2)
-                scenario += " avec n vallant 2";
+                scenario += " avec n valant 2";
             else
                 scenario += " avec n très grand";
 
