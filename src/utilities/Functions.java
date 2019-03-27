@@ -11,7 +11,7 @@ public abstract class Functions {
     private static final String FINITE_DIFFERENCE_LOG_FOLDER = "logs/finite_difference";
     public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd-MM-YYYY HH:mm:ss");
 
-    private static final SimpleDateFormat FILE_FORMATTER = new SimpleDateFormat("dd_MM_YYYY_HH:mm:ss");
+    private static final SimpleDateFormat FILE_FORMATTER = new SimpleDateFormat("dd_MM_YYYY_HH_mm_ss");
 
     public static File createFiniteDifferenceLogFile() {
         Date date = new Date();
@@ -33,7 +33,18 @@ public abstract class Functions {
         ArrayList<Pair<Character, Character>> result = new ArrayList<>();
         String s = null;
         try {
-            Process p = Runtime.getRuntime().exec("./jenny.sh 10 5");
+
+            Process p = null;
+
+            String os = System.getProperty("os.name").toLowerCase();
+            if (os.contains("win")) {
+                p = Runtime.getRuntime().exec("./jenny.exe 10 5");
+            }
+            else if (os.contains("nix") || os.contains("nux") || os.indexOf("aix") > 0) {
+                p = Runtime.getRuntime().exec("./jenny.sh 10 5");
+            }
+
+            assert p != null;
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
             while ((s = stdInput.readLine()) != null) {
