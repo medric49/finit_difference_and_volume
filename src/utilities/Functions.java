@@ -8,15 +8,16 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class Functions {
-    private static final String FINITE_DIFFERENCE_LOG_FOLDER = "logs/finite_difference";
+    public static final String FINITE_DIFFERENCE_LOG_FOLDER = "logs/finite_difference";
+    public static final String FINITE_VOLUME_LOG_FOLDER = "logs/finite_volume";
     public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd-MM-YYYY HH:mm:ss");
 
     private static final SimpleDateFormat FILE_FORMATTER = new SimpleDateFormat("dd_MM_YYYY_HH_mm_ss");
 
-    public static File createFiniteDifferenceLogFile() {
+    public static File createLogFile(String folder) {
         Date date = new Date();
 
-        String fileName = FINITE_DIFFERENCE_LOG_FOLDER+"/test_"+ FILE_FORMATTER.format(date) +".log";
+        String fileName = folder+"/test_"+ FILE_FORMATTER.format(date) +".log";
         File file = new File(fileName);
         try {
             FileOutputStream io = new FileOutputStream(file);
