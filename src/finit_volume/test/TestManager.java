@@ -33,7 +33,7 @@ public class TestManager {
 
                 String scenario = null;
                 Function f = null;
-
+                Function u = null;
                 double alpha = 0;
                 double beta = 0;
                 double tol = 0;
@@ -41,6 +41,7 @@ public class TestManager {
                 TestFunction g = null;
                 Vector ra = null;
                 Mesure mesure = null;
+
 
                 g = new TestFunction() {
                     @Override
@@ -152,7 +153,7 @@ public class TestManager {
                         break;
 
                     case 'e':
-                        n = 1005000;
+                        n = 10000;
                         mesure = new Mesure() {
                             @Override
                             public double getError(Vectorizable v1, Vectorizable v2) {
@@ -191,6 +192,12 @@ public class TestManager {
                                 return 0;
                             }
                         };
+                        u = new Function() {
+                            @Override
+                            public double calcul(double x) {
+                                return 0;
+                            }
+                        };
                         alpha = 0;
                         beta = 0;
 
@@ -198,7 +205,7 @@ public class TestManager {
                             ra = new Vector(n);
                             double[] maillage = Functions.getMaillage(n);
                             for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, f.calcul(maillage[j]));
+                                ra.set(j, u.calcul(maillage[j]));
                             }
                         }
 
@@ -213,6 +220,12 @@ public class TestManager {
                                 return 0;
                             }
                         };
+                        u = new Function() {
+                            @Override
+                            public double calcul(double x) {
+                                return 2;
+                            }
+                        };
                         alpha = 2;
                         beta = 2;
 
@@ -221,7 +234,7 @@ public class TestManager {
 
                             double[] maillage = Functions.getMaillage(n);
                             for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, f.calcul(maillage[j]));
+                                ra.set(j, u.calcul(maillage[j]));
                             }
                         }
 
@@ -235,6 +248,12 @@ public class TestManager {
                                 return 0;
                             }
                         };
+                        u = new Function() {
+                            @Override
+                            public double calcul(double x) {
+                                return x;
+                            }
+                        };
                         alpha = 0;
                         beta = 1;
 
@@ -242,7 +261,7 @@ public class TestManager {
                             ra = new Vector(n);
                             double[] maillage = Functions.getMaillage(n);
                             for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, f.calcul(maillage[j]));
+                                ra.set(j, u.calcul(maillage[j]));
                             }
                         }
 
@@ -258,6 +277,12 @@ public class TestManager {
                                 return -1;
                             }
                         };
+                        u = new Function() {
+                            @Override
+                            public double calcul(double x) {
+                                return (1./2)*x*x;
+                            }
+                        };
                         alpha = 0;
                         beta = 1. / 2;
 
@@ -266,7 +291,7 @@ public class TestManager {
 
                             double[] maillage = Functions.getMaillage(n);
                             for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, f.calcul(maillage[j]));
+                                ra.set(j, u.calcul(maillage[j]));
                             }
                         }
 
@@ -282,6 +307,12 @@ public class TestManager {
                                 return -3. * x;
                             }
                         };
+                        u = new Function() {
+                            @Override
+                            public double calcul(double x) {
+                                return  (1./2)*x*x*x;
+                            }
+                        };
                         alpha = 0;
                         beta = 1. / 2.;
 
@@ -290,7 +321,7 @@ public class TestManager {
 
                             double[] maillage = Functions.getMaillage(n);
                             for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, f.calcul(maillage[j]));
+                                ra.set(j, u.calcul(maillage[j]));
                             }
                         }
 
@@ -306,6 +337,12 @@ public class TestManager {
                                 return -16 * Math.exp(4. * x);
                             }
                         };
+                        u = new Function() {
+                            @Override
+                            public double calcul(double x) {
+                                return Math.exp(4*x);
+                            }
+                        };
                         alpha = 1;
                         beta = Math.exp(4);
 
@@ -315,7 +352,7 @@ public class TestManager {
 
                             double[] maillage = Functions.getMaillage(n);
                             for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, f.calcul(maillage[j]));
+                                ra.set(j, u.calcul(maillage[j]));
                             }
                         }
 
@@ -330,6 +367,12 @@ public class TestManager {
                                 return -9900. * Math.pow(x - 0.5, 98);
                             }
                         };
+                        u = new Function() {
+                            @Override
+                            public double calcul(double x) {
+                                return Math.pow(x-0.5, 100);
+                            }
+                        };
                         alpha = Math.pow(0.5, 100);
                         beta = Math.pow(0.5, 100);
 
@@ -338,7 +381,7 @@ public class TestManager {
 
                             double[] maillage = Functions.getMaillage(n);
                             for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, f.calcul(maillage[j]));
+                                ra.set(j, u.calcul(maillage[j]));
                             }
                         }
 
@@ -354,6 +397,12 @@ public class TestManager {
                                 return 1. / ((x + .5) * (x + .5));
                             }
                         };
+                        u = new Function() {
+                            @Override
+                            public double calcul(double x) {
+                                return Math.log(x+.5);
+                            }
+                        };
                         alpha = -Math.log(2);
                         beta = Math.log(3. / 2.);
 
@@ -363,7 +412,7 @@ public class TestManager {
 
                             double[] maillage = Functions.getMaillage(n);
                             for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, f.calcul(maillage[j]));
+                                ra.set(j, u.calcul(maillage[j]));
                             }
                         }
 
@@ -379,6 +428,12 @@ public class TestManager {
                                 return (4 * Math.PI * Math.PI) * Math.sin(2 * Math.PI * x);
                             }
                         };
+                        u = new Function() {
+                            @Override
+                            public double calcul(double x) {
+                                return Math.sin(2*Math.PI*x);
+                            }
+                        };
                         alpha = 0;
                         beta = 0;
 
@@ -388,7 +443,7 @@ public class TestManager {
 
                             double[] maillage = Functions.getMaillage(n);
                             for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, f.calcul(maillage[j]));
+                                ra.set(j, u.calcul(maillage[j]));
                             }
                         }
 
@@ -404,6 +459,12 @@ public class TestManager {
                                 return -16 * Math.sinh(4 * x);
                             }
                         };
+                        u = new Function() {
+                            @Override
+                            public double calcul(double x) {
+                                return Math.sinh(4*x);
+                            }
+                        };
                         alpha = 0;
                         beta = Math.sinh(4);
 
@@ -412,7 +473,7 @@ public class TestManager {
                             ra = new Vector(n);
                             double[] maillage = Functions.getMaillage(n);
                             for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, f.calcul(maillage[j]));
+                                ra.set(j, u.calcul(maillage[j]));
                             }
                         }
 
@@ -436,7 +497,7 @@ public class TestManager {
                 );
 
                 Map parTest = new HashMap();
-                parTest.put("file",Functions.FINITE_VOLUME_LOG_FOLDER+"/finite_volume.log");
+                parTest.put("file",Functions.FINITE_DIFFERENCE_LOG_FOLDER+"/finite_difference.log");
                 Date d1 = new Date();
 
                 parTest.put("classtotest", classeATester);
