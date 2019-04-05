@@ -153,7 +153,7 @@ public class TestManager {
                         break;
 
                     case 'e':
-                        n = 1005000;
+                        n = 10000;
                         mesure = new Mesure() {
                             @Override
                             public double getError(Vectorizable v1, Vectorizable v2) {
