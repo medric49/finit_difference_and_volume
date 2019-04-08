@@ -105,7 +105,7 @@ public class TestManager {
                                         double s0 = 0;
                                         double tmp = 0;
                                         for (int i = 0; i < v1.size(); i++) {
-                                            s0 += v2.get(i);
+                                            s0 += v2.get(i)*v2.get(i);
                                             tmp = v1.get(i) - v2.get(i);
                                             s += tmp * tmp;
                                         }
@@ -134,7 +134,7 @@ public class TestManager {
                                         double s0 = 0;
                                         double tmp = 0;
                                         for (int i = 0; i < v1.size(); i++) {
-                                            s0 += v2.get(i);
+                                            s0 += v2.get(i)*v2.get(i);
                                             tmp = v1.get(i) - v2.get(i);
                                             s += tmp * tmp;
                                         }
@@ -163,7 +163,7 @@ public class TestManager {
                                         double s0 = 0;
                                         double tmp = 0;
                                         for (int i = 0; i < v1.size(); i++) {
-                                            s0 += v2.get(i);
+                                            s0 += v2.get(i)*v2.get(i);
                                             tmp = v1.get(i) - v2.get(i);
                                             s += tmp * tmp;
                                         }
