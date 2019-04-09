@@ -203,12 +203,14 @@ public class TestManager {
 
                         if (n > 0) {
                             ra = new Vector(n);
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
-
                         break;
 
                     case 'b':
@@ -232,9 +234,11 @@ public class TestManager {
                         if (n > 0) {
                             ra = new Vector(n);
 
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
 
@@ -259,9 +263,11 @@ public class TestManager {
 
                         if (n > 0) {
                             ra = new Vector(n);
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
 
@@ -289,9 +295,11 @@ public class TestManager {
                         if (n > 0) {
                             ra = new Vector(n);
 
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
 
@@ -319,9 +327,11 @@ public class TestManager {
                         if (n > 0) {
                             ra = new Vector(n);
 
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
 
@@ -350,9 +360,11 @@ public class TestManager {
                         if (n > 0) {
                             ra = new Vector(n);
 
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
 
@@ -379,9 +391,11 @@ public class TestManager {
                         if (n > 0) {
                             ra = new Vector(n);
 
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
 
@@ -410,9 +424,11 @@ public class TestManager {
                         if (n > 0) {
                             ra = new Vector(n);
 
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
 
@@ -441,12 +457,13 @@ public class TestManager {
                         if (n > 0) {
                             ra = new Vector(n);
 
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
-
 
                         break;
 
@@ -468,12 +485,13 @@ public class TestManager {
                         alpha = 0;
                         beta = Math.sinh(4);
 
-
                         if (n > 0) {
                             ra = new Vector(n);
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
 
@@ -497,7 +515,7 @@ public class TestManager {
                 );
 
                 Map parTest = new HashMap();
-                parTest.put("file",Functions.FINITE_DIFFERENCE_LOG_FOLDER+"/finite_difference.log");
+                parTest.put("file",Functions.FINITE_VOLUME_LOG_FOLDER+"/finite_volume.log");
                 Date d1 = new Date();
 
                 parTest.put("classtotest", classeATester);
@@ -551,7 +569,7 @@ public class TestManager {
             writer.newLine();
             writer.write("Durée du test : " + ((end.getTime() - start.getTime()) / 1000.) + " secondes");
             writer.newLine();
-            writer.write("Résultat du test : " + (int) s * results.size() + "/" + results.size());
+            writer.write("Résultat du test : " + (int) (s * results.size()) + "/" + results.size());
             writer.newLine();
             writer.write("Pourcentage de réussite : " + (s * 100) + " %");
             writer.write("\n");
