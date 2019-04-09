@@ -70,4 +70,23 @@ public abstract class Functions {
         }
         return result;
     }
+
+    public static Pair<double[],double[]> getVolume(int n) {
+        double[] v = new double[n+1];
+        double[] u = new double[n+2];
+        double s = 0.;
+        v[0] = 0;
+        v[n] = 1;
+        u[0] = 0;
+        u[n+1] = 1;
+        for (int i=1; i < n; i++ ) {
+            s += 1./n;
+            v[i] = s;
+        }
+
+        for (int i = 0; i<v.length-1; i++) {
+            u[i+1] = (v[i]+v[i+1])/2;
+        }
+        return new Pair<>(v,u);
+    }
 }
