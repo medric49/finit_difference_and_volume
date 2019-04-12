@@ -1,7 +1,6 @@
 package finit_difference.development;
 
-interface Matrix{
+public interface Matrix {
     double get(long i, long j) throws MatrixOutOfSizeException;
-    void set(long i, long j, double x);
-
+    void set(long i,long j,double x) throws MatrixOutOfSizeException;
 }

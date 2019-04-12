@@ -1,6 +1,6 @@
-package finit_difference.test;
+package finit_volume.test;
 
-import finit_difference.development.*;
+import finit_volume.development.*;
 import javafx.util.Pair;
 import utilities.Functions;
 
@@ -20,12 +20,12 @@ public class TestManager {
         ArrayList<Double> times = new ArrayList<>();
 
         ArrayList<Pair<Character, Character>> testClasses = Functions.getTestClasses();
-        File logFile = Functions.createLogFile(Functions.FINITE_DIFFERENCE_LOG_FOLDER);
+        File logFile = Functions.createLogFile(Functions.FINITE_VOLUME_LOG_FOLDER);
 
 
         Date start = new Date();
         try {
-            String classeATester = "finit_difference.development.DefaultSolver";
+            String classeATester = "finit_volume.development.DefaultSolver";
             String methodToTest = "DefaultSolver.solve";
             String testFileLogger = "com.mdalsoft.test.FileTestLogger";
             for (int i = 0; i < testClasses.size(); i++) {
@@ -57,7 +57,7 @@ public class TestManager {
                             try {
                                 Vectorizable ro = f.solve(de.getAlpha(), de.getBeta(), de.getN(), de.getF());
                                 return new Vector(1);
-                            } catch (FiniteDifferenceException e) {
+                            } catch (FiniteVolumeException e) {
                                 return null;
                             } catch (Exception e) {
                                 return new Vector(1);
@@ -203,12 +203,14 @@ public class TestManager {
 
                         if (n > 0) {
                             ra = new Vector(n);
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
-
                         break;
 
                     case 'b':
@@ -232,9 +234,11 @@ public class TestManager {
                         if (n > 0) {
                             ra = new Vector(n);
 
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
 
@@ -259,9 +263,11 @@ public class TestManager {
 
                         if (n > 0) {
                             ra = new Vector(n);
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
 
@@ -289,9 +295,11 @@ public class TestManager {
                         if (n > 0) {
                             ra = new Vector(n);
 
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
 
@@ -319,9 +327,11 @@ public class TestManager {
                         if (n > 0) {
                             ra = new Vector(n);
 
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
 
@@ -350,9 +360,11 @@ public class TestManager {
                         if (n > 0) {
                             ra = new Vector(n);
 
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
 
@@ -379,9 +391,12 @@ public class TestManager {
                         if (n > 0) {
                             ra = new Vector(n);
 
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
 
@@ -410,9 +425,12 @@ public class TestManager {
                         if (n > 0) {
                             ra = new Vector(n);
 
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
 
@@ -441,12 +459,14 @@ public class TestManager {
                         if (n > 0) {
                             ra = new Vector(n);
 
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
-
 
                         break;
 
@@ -468,12 +488,14 @@ public class TestManager {
                         alpha = 0;
                         beta = Math.sinh(4);
 
-
                         if (n > 0) {
                             ra = new Vector(n);
-                            double[] maillage = Functions.getMaillage(n);
-                            for (int j = 0; j < maillage.length; j++) {
-                                ra.set(j, u.calcul(maillage[j]));
+
+                            Pair<double[], double[]> pair = Functions.getVolume(n);
+                            double[] x = pair.getValue();
+
+                            for (int j = 1; j <= n; j++) {
+                                ra.set(j-1, u.calcul(x[j]));
                             }
                         }
 

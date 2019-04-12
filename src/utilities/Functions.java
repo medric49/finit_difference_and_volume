@@ -8,15 +8,16 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class Functions {
-    private static final String FINITE_DIFFERENCE_LOG_FOLDER = "logs/finite_difference";
+    public static final String FINITE_DIFFERENCE_LOG_FOLDER = "logs/finite_difference";
+    public static final String FINITE_VOLUME_LOG_FOLDER = "logs/finite_volume";
     public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd-MM-YYYY HH:mm:ss");
 
     private static final SimpleDateFormat FILE_FORMATTER = new SimpleDateFormat("dd_MM_YYYY_HH_mm_ss");
 
-    public static File createFiniteDifferenceLogFile() {
+    public static File createLogFile(String folder) {
         Date date = new Date();
 
-        String fileName = FINITE_DIFFERENCE_LOG_FOLDER+"/test_"+ FILE_FORMATTER.format(date) +".log";
+        String fileName = folder+"/test_"+ FILE_FORMATTER.format(date) +".log";
         File file = new File(fileName);
         try {
             FileOutputStream io = new FileOutputStream(file);
@@ -68,5 +69,24 @@ public abstract class Functions {
             result[i] = s;
         }
         return result;
+    }
+
+    public static Pair<double[],double[]> getVolume(int n) {
+        double[] v = new double[n+1];
+        double[] u = new double[n+2];
+        double s = 0.;
+        v[0] = 0;
+        v[n] = 1;
+        u[0] = 0;
+        u[n+1] = 1;
+        for (int i=1; i < n; i++ ) {
+            s += 1./n;
+            v[i] = s;
+        }
+
+        for (int i = 0; i<v.length-1; i++) {
+            u[i+1] = (v[i]+v[i+1])/2;
+        }
+        return new Pair<>(v,u);
     }
 }
