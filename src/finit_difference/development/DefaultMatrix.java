@@ -14,7 +14,7 @@ public class DefaultMatrix implements Matrix{
         this.hcarr = h*h;
     }
     public double get(long i,long j) throws MatrixOutOfSizeException{
-        if((i<=size) && (j<=size)){
+        if((i>=0) && (j>=0) && (i<size) && (j<size)){
             if(i==j){
                 return 2/hcarr;
             }else if((i-j==1)||(j-i==1)){
